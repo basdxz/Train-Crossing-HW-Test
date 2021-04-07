@@ -3,14 +3,12 @@
 
 // https://github.com/guillaume-rico/SharpIR
 // This library needs to be downloaded and installed manually.
-
 #include <SharpIR.h>
 // A is the 4 to 30 CM distance sensor
 #define IR_PIN_A A0
 // For Model SHARP GP2Y0A41SK0F
 #define MODEL_A 430
 SharpIR irSensor_A(IR_PIN_A, MODEL_A);
-
 // B is the 100 to 550 CM distance sensor
 #define IR_PIN_B A1
 // For Model SHARP GP2Y0A710K0F
@@ -18,15 +16,23 @@ SharpIR irSensor_A(IR_PIN_A, MODEL_A);
 SharpIR irSensor_B(IR_PIN_B, MODEL_B);
 
 void setup() {
-	Serial.begin(BAUD_RATE);
+	setupSerial();
 	testIRSensors();
 }
 
 void loop() {
 }
 
-void testIRSensors() {
+void setupSerial() {
+	Serial.begin(BAUD_RATE);
 	Serial.println("-====-====-====-====-");
+	Serial.print("Serial Started at ");
+	Serial.print(BAUD_RATE);
+	Serial.println(" Baud");
+	Serial.println("-====-====-====-====-");
+}
+
+void testIRSensors() {
 	Serial.println("Starting IR distance sensors test");
 	Serial.println("-====-====-====-====-");
 	for (int i = 0; i < 10; i++) {
