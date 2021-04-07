@@ -2,15 +2,26 @@
 #define BAUD_RATE 9600
 
 void setup() {
-	Serial.begin(BAUD_RATE);
-	Serial.println("-====-====-====-====-");
-	Serial.println("Serial Started at 9600 Baud");
-	Serial.println("-====-====-====-====-");
+	setupSerial();
+	testSerialRead();
 }
 
 void loop() {
-	delay(500);
-	Serial.println("Waiting for user string!");
+}
+
+void setupSerial() {
+	Serial.begin(BAUD_RATE);
+	Serial.println("-====-====-====-====-");
+	Serial.print("Serial Started at ");
+	Serial.print(BAUD_RATE);
+	Serial.println(" Baud");
+	Serial.println("-====-====-====-====-");
+}
+
+void testSerialRead() {
+	Serial.println("Testing serial read");
+	Serial.println("-====-====-====-====-");
+	Serial.println("Waiting for user string");
 	Serial.println("-====-====-====-====-");
 	while (!Serial.available());
 	Serial.print("User string was: ");
