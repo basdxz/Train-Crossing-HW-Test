@@ -1,3 +1,6 @@
+// Must match baud on the serial monitor
+#define BAUD_RATE 9600
+
 // https://github.com/guillaume-rico/SharpIR
 // This library needs to be downloaded and installed manually.
 
@@ -15,7 +18,7 @@ SharpIR irSensor_A(IR_PIN_A, MODEL_A);
 SharpIR irSensor_B(IR_PIN_B, MODEL_B);
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(BAUD_RATE);
 }
 
 void loop() {
@@ -31,17 +34,17 @@ void testIRSensors() {
     testIRSensorB();
   
     unsigned long endTime = millis() - startTime;
-    Serial.print("Time taken to sample (ms): ");
+    Serial.print("Time taken to sample distance (ms): ");
     Serial.println(endTime); 
   }
 }
 
 void testIRSensorA() {
-  Serial.print("Sensor A Distance (cm): ");
+  Serial.print("Sensor A distance (cm): ");
   Serial.println(irSensor_A.distance());
 }
 
 void testIRSensorB() {
-  Serial.print("Sensor B Distance (cm): ");
+  Serial.print("Sensor B distance (cm): ");
   Serial.println(irSensor_B.distance());
 }
