@@ -6,74 +6,59 @@
 // https://github.com/adafruit/Adafruit_BusIO
 // These libraries need to be downloaded and installed manually.
 #include <Adafruit_SSD1327.h>
-
 // Used for software SPI
 #define OLED_CLK 13
 #define OLED_MOSI 11
-
 // Used for software or hardware SPI
 #define OLED_CS 10
 #define OLED_DC 8
-
 // Used for I2C or SPI
 #define OLED_RESET -1
-
-// software SPI
-//Adafruit_SSD1305 display(128, 64, OLED_MOSI, OLED_CLK, OLED_DC, OLED_RESET, OLED_CS);
-// hardware SPI
-//Adafruit_SSD1327 display(128, 128, &SPI, OLED_DC, OLED_RESET, OLED_CS);
-
 // I2C must be used to connect the OLED screen
-Adafruit_SSD1327 display(128, 128, &Wire, OLED_RESET, 1000000);
-
+Adafruit_SSD1327 display(96, 96, &Wire, OLED_RESET, 1000000);
 #define NUMFLAKES 10
 #define XPOS 0
 #define YPOS 1
 #define DELTAY 2
-
 #define LOGO16_GLCD_HEIGHT 16
 #define LOGO16_GLCD_WIDTH  16
-static const unsigned char PROGMEM logo16_glcd_bmp[] ={
-B00000000, B11000000,
-B00000001, B11000000,
-B00000001, B11000000,
-B00000011, B11100000,
-B11110011, B11100000,
-B11111110, B11111000,
-B01111110, B11111111,
-B00110011, B10011111,
-B00011111, B11111100,
-B00001101, B01110000,
-B00011011, B10100000,
-B00111111, B11100000,
-B00111111, B11110000,
-B01111100, B11110000,
-B01110000, B01110000,
-B00000000, B00110000 };
-
+static const unsigned char PROGMEM logo16_glcd_bmp[] = {
+	B00000000, B11000000,
+	B00000001, B11000000,
+	B00000001, B11000000,
+	B00000011, B11100000,
+	B11110011, B11100000,
+	B11111110, B11111000,
+	B01111110, B11111111,
+	B00110011, B10011111,
+	B00011111, B11111100,
+	B00001101, B01110000,
+	B00011011, B10100000,
+	B00111111, B11100000,
+	B00111111, B11110000,
+	B01111100, B11110000,
+	B01110000, B01110000,
+	B00000000, B00110000};
 
 void setup() {
-    Serial.begin(9600);
+    setupSerial();
 	setupOLED();
 	testOLED();
-	
-	unsigned long startTime = millis();
-	
-    Serial.println("Started OLED draw test");
-    Serial.println("-====-====-====-====-");
-    testdrawbitmap(logo16_glcd_bmp, LOGO16_GLCD_HEIGHT, LOGO16_GLCD_WIDTH);
-	Serial.println("Finnished OLED draw test");
-    Serial.println("-====-====-====-====-");
-	
-	unsigned long endTime = millis() - startTime;
-	Serial.print("Time taken for test OLED (ms): ");
-	Serial.println(endTime);
+}
+
+void loop() {
+}
+
+void setupSerial() {
+	Serial.begin(BAUD_RATE);
+	Serial.println("-====-====-====-====-");
+	Serial.print("Serial Started at ");
+	Serial.print(BAUD_RATE);
+	Serial.println(" Baud");
 	Serial.println("-====-====-====-====-");
 }
 
 void setupOLED() {
-	Serial.println("-====-====-====-====-");
-
     if (!display.begin(0x3D)) {
         Serial.println("Unable to initialize OLED test");
         Serial.println("-====-====-====-====-");
@@ -84,9 +69,6 @@ void setupOLED() {
 	
 	Serial.println("OLED initialized!");
 	Serial.println("-====-====-====-====-");
-}
-
-void loop() {
 }
 
 void testOLED() {
