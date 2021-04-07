@@ -13,14 +13,24 @@ VarSpeedServo servo_A;
 VarSpeedServo servo_B;
 
 void setup() {
-	Serial.begin(BAUD_RATE);
+	setupSerial();
 	setupServos();
 	testServos();
 }
 
-void setupServos() {
+void loop() {
+}
+
+void setupSerial() {
+	Serial.begin(BAUD_RATE);
 	Serial.println("-====-====-====-====-");
-	
+	Serial.print("Serial Started at ");
+	Serial.print(BAUD_RATE);
+	Serial.println(" Baud");
+	Serial.println("-====-====-====-====-");
+}
+
+void setupServos() {
 	unsigned long startTime = millis();
 	
 	Serial.println("Setup servo A and reset to 0 deg");
@@ -38,11 +48,7 @@ void setupServos() {
 	Serial.println("-====-====-====-====-");
 }
 
-void loop() {
-}
-
 void testServos() {
-	Serial.println("-====-====-====-====-");
 	Serial.println("Starting servo test");
 	for (int i = 0; i < 4; i++) {
 		delay(500);   
