@@ -18,33 +18,39 @@ SharpIR irSensor_A(IR_PIN_A, MODEL_A);
 SharpIR irSensor_B(IR_PIN_B, MODEL_B);
 
 void setup() {
-  Serial.begin(BAUD_RATE);
+	Serial.begin(BAUD_RATE);
+	testIRSensors();
 }
 
 void loop() {
-  testIRSensors();
 }
 
 void testIRSensors() {
-  for (int i = 0; i < 10; i++) {
-    delay(500);   
-    unsigned long startTime = millis();
+	Serial.println("-====-====-====-====-");
+	Serial.println("Starting IR distance sensors test");
+	Serial.println("-====-====-====-====-");
+	for (int i = 0; i < 10; i++) {
+		delay(500);   
+		unsigned long startTime = millis();
 
-    testIRSensorA();
-    testIRSensorB();
+		testIRSensorA();
+		testIRSensorB();
   
-    unsigned long endTime = millis() - startTime;
-    Serial.print("Time taken to sample distance (ms): ");
-    Serial.println(endTime); 
-  }
+		unsigned long endTime = millis() - startTime;
+		Serial.print("Time taken to sample distance (ms): ");
+    	Serial.println(endTime);
+		Serial.println("-====-====-====-====-");
+	}
+	Serial.println("Finished IR distance sensors test");
+	Serial.println("-====-====-====-====-");
 }
 
 void testIRSensorA() {
-  Serial.print("Sensor A distance (cm): ");
-  Serial.println(irSensor_A.distance());
+	Serial.print("Sensor A distance (cm): ");
+	Serial.println(irSensor_A.distance());
 }
 
 void testIRSensorB() {
-  Serial.print("Sensor B distance (cm): ");
-  Serial.println(irSensor_B.distance());
+	Serial.print("Sensor B distance (cm): ");
+	Serial.println(irSensor_B.distance());
 }
