@@ -1,6 +1,6 @@
 # Train-Crossing-HW-Test
 
-![image](https://user-images.githubusercontent.com/5740991/113875384-9a136c80-97ae-11eb-9a38-def3c018d983.png)
+![image](https://user-images.githubusercontent.com/5740991/113876901-178bac80-97b0-11eb-9599-59670538ccd8.png)
 
 General use instructions:
 
