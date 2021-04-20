@@ -18,6 +18,15 @@ SharpIR irSensor_A(IR_PIN_A, MODEL_A);
 #define MODEL_B 100550
 SharpIR irSensor_B(IR_PIN_B, MODEL_B);
 
+// https://github.com/gamegine/HCSR04-ultrasonic-sensor-lib
+// This library needs to be downloaded and installed manually.
+#include <HCSR04.h>
+// Connect to pin marked as TRIG
+#define SONIC_TRIGGER_PIN 2
+// Connect to pin marked as ECHO
+#define SONIC_ECHO_PIN 3
+HCSR04 usSensor(SONIC_TRIGGER_PIN, SONIC_ECHO_PIN);
+
 // https://github.com/netlabtoolkit/VarSpeedServo
 // This library needs to be downloaded and installed manually.
 #include <VarSpeedServo.h>
@@ -74,8 +83,10 @@ void setup() {
 	// Buzzer buzzing
 	setupBuzzer();
 	testBuzzer();
-	// IR Distance read outs
-	testIRSensors();
+	// IR Distance read outs (Disabled)
+	//testIRSensors();
+	// US Distance read outs
+	testUSSensor();
 	// Servo Movement
 	setupServos();
 	testServos();
@@ -155,6 +166,25 @@ void testIRSensorA() {
 void testIRSensorB() {
 	Serial.print("Sensor B distance (cm): ");
 	Serial.println(irSensor_B.distance());
+}
+
+void testUSSensor() {
+	Serial.println("Starting ultra sonic sensor test");
+	Serial.println("-====-====-====-====-");
+	for (int i = 0; i < 10; i++) {
+		delay(500);   
+		unsigned long startTime = millis();
+
+		Serial.print("Sonic Sensor distance (cm): ");
+		Serial.println(usSensor.dist());
+  
+		unsigned long endTime = millis() - startTime;
+		Serial.print("Time taken to sample distance (ms): ");
+    	Serial.println(endTime);
+		Serial.println("-====-====-====-====-");
+	}
+	Serial.println("Finished ultra sonic distance sensor test");
+	Serial.println("-====-====-====-====-");
 }
 
 void setupServos() {
