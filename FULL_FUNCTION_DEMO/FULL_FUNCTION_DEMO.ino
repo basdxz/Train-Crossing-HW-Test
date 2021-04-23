@@ -20,9 +20,13 @@ HCSR04 usSensor(SONIC_TRIGGER_PIN, SONIC_ECHO_PIN);
 #include <VarSpeedServo.h>
 // Must be PWM Data pin
 #define SERVO_PIN_A 9
+#define SERVO_DEG_LOWERED_A 90
+#define SERVO_DEG_RAISED_A 90
 VarSpeedServo servo_A;
 // Must be PWM Data pin
 #define SERVO_PIN_B 10
+#define SERVO_DEG_LOWERED_B 0
+#define SERVO_DEG_RAISED_B 0
 VarSpeedServo servo_B;
 
 // https://github.com/olikraus/U8g2_Arduino
@@ -73,10 +77,10 @@ void setupBuzzer(){
 void setupServos() {
 	Serial.println("Setup servo A and reset to 0 deg");
 	servo_A.attach(SERVO_PIN_A);
-	servo_A.write(0, 255);
+	servo_A.write(0);
 	Serial.println("Setup servo B and reset to 0 deg");
 	servo_B.attach(SERVO_PIN_B);
-	servo_B.write(0, 255);
+	servo_B.write(0);
 	Serial.println("-====-====-====-====-");
 }
 
@@ -140,13 +144,13 @@ void trainLoop() {
 }
 
 void lowerBarrier() {
-	servo_A.write(90, 255); // Assumes the closed position is 0 degrees for servo A
-	servo_B.write(90, 255); // Assumes the closed position is 0 degrees for servo B
+	servo_A.write(SERVO_DEG_LOWERED_A);
+	servo_B.write(SERVO_DEG_LOWERED_B);
 }
 
 void raiseBarrier() {
-	servo_A.write(0, 255); // Assumes the open position is 0 degrees for servo A
-	servo_B.write(0, 255); // Assumes the open position is 0 degrees for servo B
+	servo_A.write(SERVO_DEG_RAISED_A);
+	servo_B.write(SERVO_DEG_RAISED_B);
 }
 
 // Blinks the LED and Plays the buzzewr
