@@ -77,10 +77,10 @@ void setupBuzzer(){
 void setupServos() {
 	Serial.println("Setup servo A and reset to 0 deg");
 	servo_A.attach(SERVO_PIN_A);
-	servo_A.write(0);
+	servo_A.write(0, 255, true);
 	Serial.println("Setup servo B and reset to 0 deg");
 	servo_B.attach(SERVO_PIN_B);
-	servo_B.write(0);
+	servo_B.write(0, 255, true);
 	Serial.println("-====-====-====-====-");
 }
 
@@ -144,13 +144,13 @@ void trainLoop() {
 }
 
 void lowerBarrier() {
-	servo_A.write(SERVO_DEG_LOWERED_A);
-	servo_B.write(SERVO_DEG_LOWERED_B);
+	servo_A.write(SERVO_DEG_LOWERED_A, 255, true);
+	servo_B.write(SERVO_DEG_LOWERED_B, 255, true);
 }
 
 void raiseBarrier() {
-	servo_A.write(SERVO_DEG_RAISED_A);
-	servo_B.write(SERVO_DEG_RAISED_B);
+	servo_A.write(SERVO_DEG_RAISED_A, 255, true);
+	servo_B.write(SERVO_DEG_RAISED_B, 255, true);
 }
 
 // Blinks the LED and Plays the buzzewr
