@@ -34,19 +34,14 @@ VarSpeedServo servo_B;
 #include <U8g2lib.h>
 U8G2_SH1107_SEEED_128X128_1_SW_I2C u8g2(U8G2_R0, /* clock=*/ SCL, /* data=*/ SDA, /* reset=*/ U8X8_PIN_NONE);
 
-// https://github.com/lpasqualis/TimedBlink
-// This library needs to be downloaded and installed manually.
-#include <TimedBlink.h>
 // The flashing crossing LED
 #define LED_PIN LED_BUILTIN
-TimedBlink led(LED_PIN);
 void setup() {
 	setupSerial();
 	setupBuzzer();
 	setupServos();
 	setupOLED();
 	setupLED();
-	setupTimer();
 }
 
 void loop() {
@@ -92,19 +87,6 @@ void setupOLED() {
 
 void setupLED() {
 	pinMode(LED_PIN, OUTPUT);
-}
-
-void setupTimer() {
-	TCCR1A = 0;
-	TCCR1B = 0;
-	bitSet(TCCR1B, CS10);
-	bitSet(TCCR1B, CS11);  // 64 prescaler
-	bitSet(TIMSK1, TOIE1); // timer overflow interrupt
-}
-
-// This Routine runs once every ~1.005s seconds
-ISR(TIMER1_OVF_vect) {
-	led.blink();
 }
 
 bool checkSerialMessageLower() {
@@ -155,11 +137,12 @@ void raiseBarrier() {
 
 // Blinks the LED and Plays the buzzewr
 void angryFiveSecondDelay() {
-	led.blink(500, 500); // 500ms on, 500ms off
 	// This will repeat five times.
 	for (int i = 0; i < 5; i++) {
 		tone(BUZZER_PIN, 600, 250); // 600 Hz tone for 250 ms
-		delay(1000); // The actual delay
+		digitalWrite(LED_PIN, HIGH);
+		delay(500);
+		digitalWrite(LED_PIN, LOW);
+		delay(500);
 	}
-	led.blinkOff();
 }
