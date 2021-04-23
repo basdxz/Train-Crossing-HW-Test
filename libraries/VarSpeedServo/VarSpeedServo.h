@@ -108,8 +108,8 @@ typedef enum { _timer3, _timer1, _Nbr_16timers } timer16_Sequence_t ;
 typedef enum { _timer3, _timer1, _Nbr_16timers } timer16_Sequence_t ;
 
 #else  // everything else
-#define _useTimer2
-typedef enum { _timer2, _Nbr_16timers } timer16_Sequence_t ;
+#define _useTimer1
+typedef enum { _timer1, _Nbr_16timers } timer16_Sequence_t ;
 #endif
 
 #define VarSpeedServo_VERSION           2      // software version of this library
